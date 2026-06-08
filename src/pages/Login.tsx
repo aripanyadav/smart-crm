@@ -42,7 +42,7 @@ export default function Login() {
         <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-primary/20">
           <span className="text-white text-2xl font-bold">S</span>
         </div>
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white">SmartCRM</h2>
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Nowworks</h2>
         <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">Welcome back! Please sign in to your account</p>
       </div>
 

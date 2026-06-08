@@ -9,7 +9,12 @@ import Pipeline from './pages/Pipeline';
 import Settings from './pages/Settings';
 import Reports from './pages/Reports';
 import InvoiceGenerator from './pages/InvoiceGenerator';
+import Transactions from './pages/Transactions';
 import Landing from './pages/Landing';
+import KhataBook from './pages/KhataBook';
+import KhataDetails from './pages/KhataDetails';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsAndConditions from './pages/TermsAndConditions';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import { ProfileProvider } from './contexts/ProfileContext';
@@ -24,6 +29,8 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<div className="min-h-screen bg-surface dark:bg-surface-dark flex items-center justify-center p-4"><Login /></div>} />
             <Route path="/signup" element={<div className="min-h-screen bg-surface dark:bg-surface-dark flex items-center justify-center p-4"><Signup /></div>} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsAndConditions />} />
             
             <Route element={<ProtectedRoute><Layout><div /></Layout></ProtectedRoute>} />
 
@@ -31,9 +38,12 @@ function App() {
             <Route path="/contacts" element={<ProtectedRoute><Layout><Contacts /></Layout></ProtectedRoute>} />
             <Route path="/leads" element={<ProtectedRoute><Layout><Leads /></Layout></ProtectedRoute>} />
             <Route path="/pipeline" element={<ProtectedRoute><Layout><Pipeline /></Layout></ProtectedRoute>} />
+            <Route path="/khata" element={<ProtectedRoute><Layout><KhataBook /></Layout></ProtectedRoute>} />
+            <Route path="/khata/:id" element={<ProtectedRoute><Layout><KhataDetails /></Layout></ProtectedRoute>} />
             <Route path="/tasks" element={<ProtectedRoute><Layout><Tasks /></Layout></ProtectedRoute>} />
             <Route path="/reports" element={<ProtectedRoute><Layout><Reports /></Layout></ProtectedRoute>} />
             <Route path="/invoices" element={<ProtectedRoute><Layout><InvoiceGenerator /></Layout></ProtectedRoute>} />
+            <Route path="/transactions" element={<ProtectedRoute><Layout><Transactions /></Layout></ProtectedRoute>} />
             <Route path="/settings" element={<ProtectedRoute><Layout><Settings /></Layout></ProtectedRoute>} />
           </Routes>
         </ProfileProvider>

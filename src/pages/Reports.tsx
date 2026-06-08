@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../services/supabase';
-import { 
+import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   LineChart, Line
 } from 'recharts';
-import { 
-  FileText, Table as TableIcon, TrendingUp, 
-  DollarSign, Loader2, AlertCircle 
+import {
+  FileText, Table as TableIcon, TrendingUp,
+  DollarSign, Loader2, AlertCircle
 } from 'lucide-react';
 import { useProfile } from '../contexts/ProfileContext';
 import { formatCurrency } from '../utils/formatters';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 interface MonthlyData {
   month: string;
@@ -43,15 +43,15 @@ export default function Reports() {
 
       // Group by month
       const monthlyMap: Record<string, MonthlyData> = {};
-      
+
       leads?.forEach(lead => {
         const date = new Date(lead.created_at);
         const monthYear = date.toLocaleString('default', { month: 'short', year: 'numeric' });
-        
+
         if (!monthlyMap[monthYear]) {
           monthlyMap[monthYear] = { month: monthYear, total: 0, converted: 0, revenue: 0 };
         }
-        
+
         monthlyMap[monthYear].total += 1;
         if (lead.status === 'Converted') {
           monthlyMap[monthYear].converted += 1;
@@ -90,7 +90,7 @@ export default function Reports() {
     const link = document.createElement("a");
     const url = URL.createObjectURL(blob);
     link.setAttribute("href", url);
-    link.setAttribute("download", `SmartCRM_Report_${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute("download", `Nowworks_Report_${new Date().toISOString().split('T')[0]}.csv`);
     link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();
@@ -99,13 +99,13 @@ export default function Reports() {
 
   const exportPDF = () => {
     const doc = new jsPDF() as any;
-    
+
     doc.setFontSize(20);
-    doc.text('SmartCRM Business Report', 14, 22);
+    doc.text('Nowworks Business Report', 14, 22);
     doc.setFontSize(11);
     doc.setTextColor(100);
     doc.text(`Generated on: ${new Date().toLocaleString()}`, 14, 30);
-    
+
     const tableData = data.map(m => [
       m.month,
       m.total,
@@ -114,15 +114,15 @@ export default function Reports() {
       formatCurrency(m.revenue, profile?.currency)
     ]);
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: 40,
       head: [['Month', 'Total Leads', 'Converted', 'Conv. Rate', 'Revenue']],
       body: tableData,
       theme: 'grid',
-      headStyles: { fillStyle: [37, 99, 235] }
+      headStyles: { fillColor: [37, 99, 235] }
     });
 
-    doc.save(`SmartCRM_Report_${new Date().toISOString().split('T')[0]}.pdf`);
+    doc.save(`Nowworks_Report_${new Date().toISOString().split('T')[0]}.pdf`);
   };
 
   if (loading) {
@@ -142,14 +142,14 @@ export default function Reports() {
           <p className="text-gray-500 dark:text-gray-400 mt-1">Analyze your sales performance and lead trends</p>
         </div>
         <div className="flex gap-3">
-          <button 
+          <button
             onClick={exportCSV}
             className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-bold text-gray-700 dark:text-gray-200 hover:bg-gray-50 transition-all shadow-sm"
           >
             <TableIcon className="w-4 h-4" />
             Export CSV
           </button>
-          <button 
+          <button
             onClick={exportPDF}
             className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-xl text-sm font-bold hover:bg-primary-dark transition-all shadow-lg shadow-primary/20"
           >
@@ -178,7 +178,7 @@ export default function Reports() {
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
                 <XAxis dataKey="month" axisLine={false} tickLine={false} fontSize={12} />
                 <YAxis axisLine={false} tickLine={false} fontSize={12} />
-                <Tooltip 
+                <Tooltip
                   contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
                 />
                 <Legend />
@@ -200,7 +200,7 @@ export default function Reports() {
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
                 <XAxis dataKey="month" axisLine={false} tickLine={false} fontSize={12} />
                 <YAxis axisLine={false} tickLine={false} fontSize={12} />
-                <Tooltip 
+                <Tooltip
                   formatter={(value: any) => formatCurrency(value, profile?.currency)}
                   contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
                 />

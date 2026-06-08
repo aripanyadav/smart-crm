@@ -35,10 +35,15 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
     let mounted = true;
 
     async function init() {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (mounted && session) {
-        await refreshProfile();
-      } else {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (mounted && session) {
+          await refreshProfile();
+        } else {
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error('Failed to get auth session in init:', err);
         setLoading(false);
       }
     }

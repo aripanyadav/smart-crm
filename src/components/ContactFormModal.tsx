@@ -40,10 +40,22 @@ export default function ContactFormModal({ isOpen, onClose, onSuccess, contactTo
 
   if (!isOpen) return null;
 
+  const [emailError, setEmailError] = useState<string | null>(null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setEmailError(null);
+
+    if (formData.email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        setEmailError('Please enter a valid email address');
+        setLoading(false);
+        return;
+      }
+    }
 
     try {
       if (contactToEdit) {
@@ -107,10 +119,20 @@ export default function ContactFormModal({ isOpen, onClose, onSuccess, contactTo
               <input
                 type="email"
                 value={formData.email || ''}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-primary focus:border-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-white outline-none transition-colors"
+                onChange={(e) => {
+                  setFormData({ ...formData, email: e.target.value });
+                  if (emailError) setEmailError(null);
+                }}
+                className={`w-full px-3 py-2 border rounded-lg focus:ring-primary focus:border-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-white outline-none transition-colors ${
+                  emailError 
+                    ? 'border-red-500 dark:border-red-500 focus:ring-red-500 focus:border-red-500' 
+                    : 'border-gray-300 dark:border-gray-600'
+                }`}
                 placeholder="john@example.com"
               />
+              {emailError && (
+                <p className="mt-1 text-xs text-red-500">{emailError}</p>
+              )}
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">

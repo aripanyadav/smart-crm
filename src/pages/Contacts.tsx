@@ -77,18 +77,30 @@ export default function Contacts() {
 
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3].map(i => (
-            <div key={i} className="h-48 bg-gray-100 dark:bg-gray-800 rounded-2xl animate-pulse" />
+          {[1, 2, 3, 4, 5, 6].map(i => (
+            <div key={i} className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 h-48 flex flex-col justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 animate-pulse shrink-0" />
+                <div className="space-y-2 flex-1">
+                  <div className="h-4 w-3/4 bg-gray-100 dark:bg-gray-700 rounded animate-pulse" />
+                  <div className="h-3 w-1/2 bg-gray-100 dark:bg-gray-700 rounded animate-pulse" />
+                </div>
+              </div>
+              <div className="space-y-3 mt-6">
+                <div className="h-3 w-full bg-gray-100 dark:bg-gray-700 rounded animate-pulse" />
+                <div className="h-3 w-2/3 bg-gray-100 dark:bg-gray-700 rounded animate-pulse" />
+              </div>
+            </div>
           ))}
         </div>
       ) : contacts.length === 0 ? (
-        <div className="text-center py-20 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
-          <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
-            <Users className="w-8 h-8" />
+        <div className="text-center py-24 bg-white dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-sm max-w-3xl mx-auto">
+          <div className="w-20 h-20 bg-gray-50 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Users className="w-10 h-10" />
           </div>
-          <h3 className="text-lg font-medium text-gray-900 dark:text-white">No contacts yet</h3>
-          <p className="mt-1 text-gray-500 dark:text-gray-400 max-w-sm mx-auto">
-            Get started by adding your first contact to keep track of your leads and clients.
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white">No contacts yet</h3>
+          <p className="mt-2 text-gray-500 dark:text-gray-400 max-w-md mx-auto">
+            Get started by adding your first contact. This is where you'll keep track of all your leads, clients, and partners.
           </p>
           <button
             onClick={openAddModal}

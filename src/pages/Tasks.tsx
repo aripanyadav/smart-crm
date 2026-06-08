@@ -100,30 +100,32 @@ export default function Tasks() {
 
       {loading ? (
         <div className="grid grid-cols-1 gap-4">
-          {[1, 2, 3].map(i => (
-            <div key={i} className="bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 animate-pulse">
-              <div className="flex justify-between items-start">
-                <div className="space-y-3 w-full max-w-md">
-                  <div className="h-5 bg-gray-100 dark:bg-gray-700 rounded w-3/4" />
-                  <div className="h-4 bg-gray-100 dark:bg-gray-700 rounded w-1/2" />
+          {[1, 2, 3, 4].map(i => (
+            <div key={i} className="bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 h-32 flex flex-col justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-700 animate-pulse shrink-0" />
+                <div className="space-y-2 flex-1">
+                  <div className="h-4 w-1/3 bg-gray-100 dark:bg-gray-700 rounded animate-pulse" />
+                  <div className="h-3 w-1/4 bg-gray-100 dark:bg-gray-700 rounded animate-pulse" />
                 </div>
-                <div className="h-8 w-24 bg-gray-100 dark:bg-gray-700 rounded-full" />
+                <div className="h-8 w-24 bg-gray-100 dark:bg-gray-700 rounded-full animate-pulse" />
               </div>
+              <div className="h-3 w-full max-w-md bg-gray-100 dark:bg-gray-700 rounded animate-pulse mt-4 ml-14" />
             </div>
           ))}
         </div>
       ) : tasks.length === 0 ? (
-        <div className="text-center py-20 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
-          <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
-            <CheckSquare className="w-8 h-8" />
+        <div className="text-center py-24 bg-white dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-sm max-w-3xl mx-auto">
+          <div className="w-20 h-20 bg-gray-50 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckSquare className="w-10 h-10" />
           </div>
-          <h3 className="text-lg font-medium text-gray-900 dark:text-white">No upcoming tasks</h3>
-          <p className="mt-1 text-gray-500 dark:text-gray-400 max-w-sm mx-auto">
-            You don't have any tasks right now. Create a task to follow up on your leads.
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white">No upcoming tasks</h3>
+          <p className="mt-2 text-gray-500 dark:text-gray-400 max-w-md mx-auto">
+            You don't have any tasks right now. Create a task to follow up on your leads and stay organized.
           </p>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm"
+            className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 text-sm font-bold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all shadow-sm"
           >
             <Plus className="w-4 h-4" />
             Create a Task

@@ -37,10 +37,10 @@ export default function Notifications() {
         return dueDate <= now || isSameDay(dueDate, now);
       });
       setNotifications(filtered);
-      
+
       // Browser notification for extremely urgent ones (optional)
       if (filtered.length > notifications.length && Notification.permission === 'granted') {
-        new Notification('SmartCRM: New Follow-up Due!', {
+        new Notification('Nowworks: New Follow-up Due!', {
           body: `You have ${filtered.length} follow-ups waiting.`,
           icon: '/favicon.ico'
         });
@@ -52,8 +52,8 @@ export default function Notifications() {
 
   const isSameDay = (d1: Date, d2: Date) => {
     return d1.getFullYear() === d2.getFullYear() &&
-           d1.getMonth() === d2.getMonth() &&
-           d1.getDate() === d2.getDate();
+      d1.getMonth() === d2.getMonth() &&
+      d1.getDate() === d2.getDate();
   };
 
   const requestPermission = () => {

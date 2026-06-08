@@ -34,7 +34,7 @@ export const aiLeadsService = {
       // 2. Try Gemini AI if API Key exists
       if (genAI) {
         try {
-          const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+          const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
           
           const prompt = `
             You are a CRM Sales Expert and Psychologist. Analyze this lead and provide a priority score (0-100) and a 1-sentence reason.
